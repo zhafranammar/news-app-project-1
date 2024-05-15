@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>News App Management</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- Tailwind CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet" />
+    <!-- DataTable -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" />
+    <script
+      type="text/javascript"
+      charset="utf8"
+      src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      footer {
+        margin-top: auto;
+      }
+    </style>
+  </head>
+
+  <body class="bg-gray-100">
+    <!-- Header -->
+    <header class="bg-blue-500 text-white p-4">
+      <div class="container mx-auto">
+        <a href="/"
+          ><h1 class="text-2xl font-bold">News Management System</h1></a
+        >
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container mx-auto mt-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Users Card -->
+        <div class="bg-white shadow-md rounded-lg overflow-hidden">
+          <a href="/users" class="flex flex-col items-center">
+            <img
+              width="256"
+              height="256"
+              src="https://img.icons8.com/bubbles/256/user.png"
+              alt="user" />
+            <div class="p-4 text-center">
+              <h2 class="text-xl font-bold text-gray-800">Manage Users</h2>
+              <p class="text-gray-600">View and manage system users.</p>
+            </div>
+          </a>
+        </div>
+
+        <!-- News Card -->
+        <div class="bg-white shadow-md rounded-lg overflow-hidden">
+          <a href="/news" class="flex flex-col items-center">
+            <img
+              width="256"
+              height="256"
+              src="https://img.icons8.com/dusk/256/news.png"
+              alt="news" />
+            <div class="p-4 text-center">
+              <h2 class="text-xl font-bold text-gray-800">Manage News</h2>
+              <p class="text-gray-600">View and manage news articles.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white p-4">
+      <div class="container mx-auto text-center">
+        <p>&copy; 2024 News Management System</p>
+      </div>
+    </footer>
+  </body>
+</html>

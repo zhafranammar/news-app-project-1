@@ -1,4 +1,5 @@
-const { New } = require('../models');
+const { User, New } = require('../models');
+const slugify = require('slugify');
 
 
 const newController = {
@@ -9,21 +10,42 @@ const newController = {
 
   getNewById: async (req, res) => {
     const news = await New.findByPk(req.params.id);
-    res.render('news/show', { news });
+    const author = await User.findByPk(news.userId)
+    res.render('news/show', { news, author });
   },
 
   createNewForm: async (req, res) => {
-    res.render('news/create');
+    const authors = await User.findAll()
+    res.render('news/create', { authors });
   },
 
   createNew: async (req, res) => {
-    await New.create(req.body);
-    res.redirect('/news');
+    try {
+      const { title, userId, content } = req.body;
+      if (!title || !userId || !content) {
+        return res.status(400).send('Title, userId, and content are required');
+      }
+
+      const news = new New();
+      news.title = title;
+      news.userId = userId;
+      news.content = content;
+      news.slug = slugify(title, { lower: true, strict: true });
+      news.publicationDate = new Date()
+
+      await news.save(); // Use save method to persist the document
+
+      res.redirect('/news');
+    } catch (error) {
+      console.error('Error creating news:', error);
+      res.status(500).send('Server error');
+    }
   },
 
   updateNewForm: async (req, res) => {
     const news = await New.findByPk(req.params.id);
-    res.render('news/edit', { news });
+    const authors = await User.findAll()
+    res.render('news/edit', { news, authors });
   },
 
   updateNew: async (req, res) => {

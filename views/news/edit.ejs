@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>News App Management</title>
+    <!-- Tailwind CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet" />
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      footer {
+        margin-top: auto;
+      }
+    </style>
+  </head>
+
+  <body class="bg-gray-100">
+    <!-- Header -->
+    <header class="bg-blue-500 text-white p-4">
+      <div class="container mx-auto">
+        <a href="/"
+          ><h1 class="text-2xl font-bold">News Management System</h1></a
+        >
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container mx-auto mt-8">
+      <h2 class="text-2xl font-bold mb-4">Edit News</h2>
+      <form action="/news/<%=news.id%>/update" method="POST" class="max-w-full">
+        <div class="mb-4">
+          <label for="title" class="block text-gray-700 font-bold mb-2"
+            >Title:</label
+          >
+          <input
+            type="text"
+            id="title"
+            name="title"
+            value="<%= news.title%>"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            required />
+        </div>
+        <div class="mb-4">
+          <label for="content" class="block text-gray-700 font-bold mb-2"
+            >Content:</label
+          >
+          <textarea
+            id="content"
+            name="content"
+            rows="7"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            required>
+<%= news.content %></textarea
+          >
+        </div>
+
+        <div class="mb-4">
+          <label for="userId" class="block text-gray-700 font-bold mb-2"
+            >Authors:</label
+          >
+          <select
+            id="userId"
+            name="userId"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            required >
+            <% authors.forEach(author => { %>
+            <option value="<%= author.id %>" <%= author.id === news.userId ? 'selected' : '' %>><%= author.username %></option>
+            <% }) %>
+          </select>
+        </div>
+        <div class="flex justify-end">
+          <button
+            type="submit"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            Edit
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white p-4">
+      <div class="container mx-auto text-center">
+        <p>&copy; 2024 News Management System</p>
+      </div>
+    </footer>
+  </body>
+</html>

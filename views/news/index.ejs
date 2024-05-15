@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>News App Management</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- Tailwind CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet" />
+    <!-- DataTable -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" />
+    <script
+      type="text/javascript"
+      charset="utf8"
+      src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      footer {
+        margin-top: auto;
+      }
+    </style>
+  </head>
+
+  <body class="bg-gray-100">
+    <!-- Header -->
+    <header class="bg-blue-500 text-white p-4">
+      <div class="container mx-auto">
+        <a href="/"
+          ><h1 class="text-2xl font-bold">News Management System</h1></a
+        >
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container mx-auto mt-8">
+      <h2 class="text-2xl font-bold mb-4">News</h2>
+      <a
+        href="/news/create"
+        class="bg-blue-500 text-white px-4 py-2 rounded shadow mb-4 inline-block"
+        >Add New</a
+      >
+      <table id="myTable" class="border-collapse w-full">
+        <thead>
+          <tr>
+            <th class="border border-gray-400 px-4 py-2">Id</th>
+            <th class="border border-gray-400 px-4 py-2">Title</th>
+            <th class="border border-gray-400 px-4 py-2">Content</th>
+            <th class="border border-gray-400 px-4 py-2">Publication Date</th>
+            <th class="border border-gray-400 px-4 py-2">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% news.forEach(article => { %>
+          <tr>
+            <td class="border border-gray-400 px-4 py-2"><%= article.id %></td>
+            <td class="border border-gray-400 px-4 py-2">
+              <%= article.title %>
+            </td>
+            <td class="border border-gray-400 px-4 py-2">
+              <%= article.content %>
+            </td>
+            <td class="border border-gray-400 px-4 py-2">
+              <%= article.publicationDate %>
+            </td>
+
+            <td class="border border-gray-400 px-4 py-2 text-center">
+              <a href="/news/<%= article.id %>" class="text-blue-500">View</a>
+              <a
+                href="/news/<%= article.id %>/edit"
+                class="text-yellow-500 ml-2"
+                >Edit</a
+              >
+              <form
+                action="/news/<%= article.id %>/delete"
+                method="POST"
+                class="inline">
+                <button type="submit" class="text-red-500 ml-2">Delete</button>
+              </form>
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white p-4">
+      <div class="container mx-auto text-center">
+        <p>&copy; 2024 News App Management System</p>
+      </div>
+    </footer>
+  </body>
+</html>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var myTable = $("#myTable").DataTable()
+  })
+</script>
