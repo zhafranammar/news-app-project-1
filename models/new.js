@@ -9,10 +9,30 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   New.init({
-    title: DataTypes.STRING,
-    slug: DataTypes.STRING,
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        notNull: { msg: 'Title cannot be null' }
+      }
+    },
+    slug: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        notNull: { msg: 'Slug cannot be null' }
+      }
+    },
     publicationDate: DataTypes.DATE,
-    content: DataTypes.TEXT,
+    content: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+      validate: {
+        notNull: { msg: 'Content cannot be null' }
+      }
+    },
     userId: DataTypes.INTEGER
   }, {
     sequelize,

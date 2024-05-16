@@ -17,8 +17,14 @@ const userController = {
   },
 
   createUser: async (req, res) => {
-    await User.create(req.body);
-    res.redirect('/users');
+
+    try {
+      await User.create(req.body);
+      res.redirect('/users');
+    } catch (err) {
+      res.redirect('/error?message=' + encodeURIComponent(err.message));
+    }
+
   },
 
   updateUserForm: async (req, res) => {
@@ -27,9 +33,13 @@ const userController = {
   },
 
   updateUser: async (req, res) => {
-    const { id } = req.params;
-    await User.update(req.body, { where: { id } });
-    res.redirect('/users');
+    try {
+      const { id } = req.params;
+      await User.update(req.body, { where: { id } });
+      res.redirect('/users');
+    } catch (err) {
+      res.redirect('/error?message=' + encodeURIComponent(err.message));
+    }
   },
 
   deleteUser: async (req, res) => {

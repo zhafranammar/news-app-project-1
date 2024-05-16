@@ -25,5 +25,10 @@ router.post('/news', newController.createNew);
 router.post('/news/:id/update', newController.updateNew);
 router.post('/news/:id/delete', newController.deleteNew);
 
+//Route Error
+router.get('/error', (req, res) => {
+  console.log(req.query.message)
+  res.render('error', { message: req.query.message });
+});
 
 module.exports = router;

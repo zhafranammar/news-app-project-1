@@ -23,7 +23,7 @@ const newController = {
     try {
       const { title, userId, content } = req.body;
       if (!title || !userId || !content) {
-        return res.status(400).send('Title, userId, and content are required');
+        return res.redirect('/error?message=Title, userId, and content are required');
       }
 
       const news = new New();
@@ -36,9 +36,8 @@ const newController = {
       await news.save(); // Use save method to persist the document
 
       res.redirect('/news');
-    } catch (error) {
-      console.error('Error creating news:', error);
-      res.status(500).send('Server error');
+    } catch (err) {
+      res.redirect('/error?message=' + encodeURIComponent(err.message));
     }
   },
 
@@ -49,9 +48,14 @@ const newController = {
   },
 
   updateNew: async (req, res) => {
-    const { id } = req.params;
-    await New.update(req.body, { where: { id } });
-    res.redirect('/news');
+    try {
+      const { id } = req.params;
+      await New.update(req.body, { where: { id } });
+      res.redirect('/news');
+    } catch (err) {
+      res.redirect('/error?message=' + encodeURIComponent(err.message));
+    }
+
   },
 
   deleteNew: async (req, res) => {
